@@ -3,7 +3,7 @@ import { HttpError } from 'http-errors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './user/userRouter';
-
+import bookRouter from './book/bookRouter';
 const app = express();
 
 
@@ -11,6 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/api/users',userRouter)
+app.use('/api/books',bookRouter)
 
 //Routes
 
