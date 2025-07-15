@@ -3,8 +3,10 @@ import { Request, Response } from "express";
 import createHttpError from "http-errors";
 import userModel from "./userModel"; 
 import bcrypt from "bcrypt";
-
-
+import jsonwebtoken from "jsonwebtoken";
+import {sign} from 'jsonwebtoken'
+import dotenv from 'dotenv';
+dotenv.config();
 
 const createUser = async (req:Request, res:Response,next:NextFunction) => {
     const { name, email, password } = req.body;
@@ -33,9 +35,23 @@ const createUser = async (req:Request, res:Response,next:NextFunction) => {
   
     const hashedPassword = await bcrypt.hash(password, 7);
     
+    
+    const newUser = await userModel.create({
+        name,
+        email,
+        password: hashedPassword
+    });
+
+    //Token generation
 
 
-    //process
+    const token = sign({
+        sub: newUser._id,
+
+    },process.env.JWT_SECRET as string,{
+        expiresIn: '1d'
+    })
+
 
     //Resonse
 
@@ -43,7 +59,7 @@ const createUser = async (req:Request, res:Response,next:NextFunction) => {
 
 
 res.status(201).json({
-    message: "User created successfully",   
+    accessToken: token,   
     
 });
 
