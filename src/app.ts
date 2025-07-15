@@ -22,16 +22,6 @@ app.get('/', (req, res,next) => {
 
 
 
-//GLOBAL ERROR HANDLER
-app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
-    const statusCode = err.statusCode || 500;
-
-    return res.status(statusCode).json({
-        status: 'error',
-        errorStack: err.stack,
-        message: err.message || 'Internal Server Error',
-    }); 
-});
 
 
 

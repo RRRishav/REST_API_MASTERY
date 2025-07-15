@@ -3,6 +3,9 @@ import conf from 'dotenv';
 import { config } from './src/config/config';
 import connectDB from './src/config/db';
 import { connect } from "http2";
+import globalErrorhandler from "./src/middlewares/globalhandlermiddlewares";
+
+
 
 
 const startServer = async ()=>{
@@ -17,3 +20,6 @@ const startServer = async ()=>{
 
 
 startServer();
+
+//GLOBAL ERRROR HANDLER
+app.use(globalErrorhandler);
