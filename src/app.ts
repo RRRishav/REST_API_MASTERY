@@ -2,13 +2,20 @@ import express from 'express';
 const app = express();
 
 
-//Routes
+
+
 
 app.use(express.json());
 
+
+//Routes
+
+
 //HTTP METHODS
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('/', (req, res,next) => {
+    res.json({
+        message: "Welcome to the API"
+    })
 });
 
 
